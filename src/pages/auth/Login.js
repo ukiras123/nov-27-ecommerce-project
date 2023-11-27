@@ -1,8 +1,17 @@
 import React from 'react'
+import Header from '../../components/layout/Header'
+import Footer from '../../components/layout/Footer'
 
 function Login() {
     return (
-        <div>Login</div>
+        <div>
+            {/* Header */}
+            <Header />
+            <div className='main'>Login Form</div>
+
+            {/* Footer */}
+            <Footer />
+        </div>
     )
 }
 

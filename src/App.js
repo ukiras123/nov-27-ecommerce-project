@@ -19,6 +19,7 @@ function App() {
       <Routes>
         {/* Public */}
         <Route path="/" element={<Login />}></Route>
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/forget-password" element={<ForgetPassword />}></Route>
         {/* We will make it private once we have one admin created */}
         <Route path="/register" element={<Register />}></Route>

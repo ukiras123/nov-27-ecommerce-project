@@ -1,8 +1,17 @@
 import React from 'react'
+import Header from '../../components/layout/Header'
+import Footer from '../../components/layout/Footer'
 
 function ForgetPassword() {
     return (
-        <div>ForgetPassword</div>
+        <div>
+            {/* Header */}
+            <Header />
+            <div className='main'>Forget Password</div>
+
+            {/* Footer */}
+            <Footer />
+        </div>
     )
 }
 

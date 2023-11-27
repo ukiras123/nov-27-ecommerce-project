@@ -1,8 +1,11 @@
 import React from 'react'
+import AdminLayout from '../../components/layout/AdminLayout'
 
 function Category() {
     return (
-        <div>Category</div>
+        <AdminLayout title="Category">
+            TODO
+        </AdminLayout>
     )
 }
 

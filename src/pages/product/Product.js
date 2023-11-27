@@ -1,8 +1,11 @@
 import React from 'react'
+import AdminLayout from '../../components/layout/AdminLayout'
 
 function Product() {
     return (
-        <div>Product</div>
+        <AdminLayout title="Product">
+            TODO
+        </AdminLayout>
     )
 }
 
