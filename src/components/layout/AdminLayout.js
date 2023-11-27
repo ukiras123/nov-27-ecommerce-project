@@ -9,7 +9,7 @@ function AdminLayout({ children, title }) {
             <div className="left w-25 bg-dark text-light">
                 <SideBar />
             </div>
-            <div className="righ w-75">
+            <div className="right w-75">
                 <Header></Header>
                 <div className='main'>
                     <h2 className='px-3 pt-3'>{title}</h2>

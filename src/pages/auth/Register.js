@@ -1,11 +1,97 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/layout/Header'
 import Footer from '../../components/layout/Footer'
-
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import CustomInput from '../../components/customInput/CustomInput';
+import { useDispatch } from 'react-redux';
+import { createAdminUser } from '../../redux/auth/userAction';
+import { useNavigate } from 'react-router-dom';
+const inputFields = [
+    {
+        label: "First Name *",
+        name: "fName",
+        type: "text",
+        placeholder: "Sam",
+        required: true
+    },
+    {
+        label: "Last Name *",
+        name: "lName",
+        type: "text",
+        placeholder: "Smith",
+        required: true
+    },
+    {
+        label: "Phone",
+        name: "phone",
+        type: "number",
+        placeholder: "302xxxxx",
+    },
+    {
+        label: "Email *",
+        name: "email",
+        type: "email",
+        placeholder: "xyz@zyx.com",
+        required: true
+    },
+    {
+        label: "Password *",
+        name: "password",
+        type: "password",
+        placeholder: "******",
+        required: true,
+        minlength: 6
+    },
+    {
+        label: "Confirm Password *",
+        name: "confirmPassword",
+        type: "password",
+        placeholder: "******",
+        required: true,
+        minlength: 6
+    }
+]
 function Register() {
+
+    const [formData, setFormData] = useState({});
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const handleOnChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        })
+    }
+
+    const handleOnSubmit = (e) => {
+        // stop page from refreshing, which is a default behavior
+        e.preventDefault();
+        // Create a admin user in firebase
+        // Auth and DB
+        dispatch(createAdminUser(formData, navigate))
+    }
+
     return (<div>
         <Header />
-        <div className='main'>Register</div>
+        <div className='main'>
+            <div>
+                <Form onSubmit={handleOnSubmit} className='login-form mt-3 mb-3 border p-5 shadow-lg '>
+
+                    {inputFields.map((input) => {
+                        return <CustomInput {...input} onChange={handleOnChange} />
+                        // return <CustomInput label="First Name *" name="fName" ... />
+                    })}
+
+
+                    <Button variant="primary" type="submit">
+                        Register Admin
+                    </Button>
+                </Form>
+            </div>
+        </div>
         <Footer />
     </div>
     )

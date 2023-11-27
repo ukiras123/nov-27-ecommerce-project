@@ -11,6 +11,8 @@ import PaymentOptions from './pages/payment-options/PaymentOptions';
 import Orders from './pages/orders/Orders';
 import Customers from './pages/customers/Customers';
 import Profile from './pages/profile/Profile';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -34,8 +36,9 @@ function App() {
         <Route path="/customers" element={<Customers />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
 
-
       </Routes>
+      <ToastContainer />
+
     </div>
   );
 }
