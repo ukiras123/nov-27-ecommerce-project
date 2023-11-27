@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+Dependencies
+
+1. firebase
+2. @reduxjs/toolkit react-redux
+3. react-toastify
+4. react-router-dom
+5. npm i react-bootstrap bootstrap
+6. react-icons
+
+
+`npm i firebase @reduxjs/toolkit react-redux react-toastify react-router-dom react-bootstrap bootstrap react-icons`
