@@ -1,7 +1,8 @@
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth"
 import { auth, db } from "../../firebase-config"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, getDoc, setDoc } from "firebase/firestore"
 import { toast } from "react-toastify"
+import { setUser } from "./userSlice"
 
 
 export const createAdminUser = (userInfo, navigate) => async (dispatch) => {
@@ -25,5 +26,52 @@ export const createAdminUser = (userInfo, navigate) => async (dispatch) => {
             toast.error(`Something went wrong. ${e.message}`)
         }
 
+    }
+}
+
+export const loginAdminUser = (email, password) => async (dispatch) => {
+    try {
+        // Check with auth, if email/pass login is valid
+        const authSnap = signInWithEmailAndPassword(auth, email, password);
+        toast.promise(authSnap, {
+            pending: "In Progress..."
+        })
+        const { user } = await authSnap;
+        // If login is success, then query firebase DB to get user info
+        // and put that in our redux store
+        dispatch(getUserInfo(user.uid))
+    } catch (e) {
+        console.log("error", e)
+        toast.error(`Something went wrong. ${e.message}`)
+    }
+}
+
+export const resetPassword = (email) => async (dispatch) => {
+    try {
+        // Check with auth, if email/pass login is valid
+        const resPromise = sendPasswordResetEmail(auth, email);
+        toast.promise(resPromise, {
+            pending: "In Progress..."
+        })
+        await resPromise;
+        toast.success(`Reset Email sent success!`)
+    } catch (e) {
+        console.log("error", e)
+        toast.error(`Something went wrong. ${e.message}`)
+    }
+}
+
+export const getUserInfo = (uid) => async (dispatch) => {
+    try {
+        const userSnap = await getDoc(doc(db, "users", uid));
+        if (userSnap.exists()) {
+            const userData = userSnap.data();
+            const userInfo = { ...userData, uid }
+            // I will put this in our store
+            dispatch(setUser(userInfo))
+        }
+    } catch (e) {
+        console.log("error", e)
+        toast.error(`Something went wrong. ${e.message}`)
     }
 }

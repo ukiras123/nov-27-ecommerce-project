@@ -7,6 +7,7 @@ import CustomInput from '../../components/customInput/CustomInput';
 import { useDispatch } from 'react-redux';
 import { createAdminUser } from '../../redux/auth/userAction';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const inputFields = [
     {
         label: "First Name *",
@@ -41,7 +42,7 @@ const inputFields = [
         type: "password",
         placeholder: "******",
         required: true,
-        minlength: 6
+        minLength: 6
     },
     {
         label: "Confirm Password *",
@@ -49,7 +50,7 @@ const inputFields = [
         type: "password",
         placeholder: "******",
         required: true,
-        minlength: 6
+        minLength: 6
     }
 ]
 function Register() {
@@ -69,6 +70,11 @@ function Register() {
     const handleOnSubmit = (e) => {
         // stop page from refreshing, which is a default behavior
         e.preventDefault();
+        const { password, confirmPassword } = formData;
+        if (password !== confirmPassword) {
+            toast.error("Password and Confirm Pass did not match")
+            return;
+        }
         // Create a admin user in firebase
         // Auth and DB
         dispatch(createAdminUser(formData, navigate))
