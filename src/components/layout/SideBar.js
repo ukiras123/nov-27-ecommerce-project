@@ -29,6 +29,10 @@ function SideBar() {
             path: "/customers"
         },
         {
+            label: "AdminSignup",
+            path: "/register"
+        },
+        {
             label: "Profile",
             path: "/profile"
         },

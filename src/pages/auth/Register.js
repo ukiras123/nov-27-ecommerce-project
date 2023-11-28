@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { createAdminUser } from '../../redux/auth/userAction';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import AdminLayout from '../../components/layout/AdminLayout';
 const inputFields = [
     {
         label: "First Name *",
@@ -55,7 +56,9 @@ const inputFields = [
 ]
 function Register() {
 
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        role: "admin"
+    });
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -80,9 +83,8 @@ function Register() {
         dispatch(createAdminUser(formData, navigate))
     }
 
-    return (<div>
-        <Header />
-        <div className='main'>
+    return (
+        <AdminLayout title={"Register Admin"}>
             <div>
                 <Form onSubmit={handleOnSubmit} className='login-form mt-3 mb-3 border p-5 shadow-lg '>
 
@@ -97,9 +99,7 @@ function Register() {
                     </Button>
                 </Form>
             </div>
-        </div>
-        <Footer />
-    </div>
+        </AdminLayout >
     )
 }
 
