@@ -13,8 +13,22 @@ import Customers from './pages/customers/Customers';
 import Profile from './pages/profile/Profile';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { getUserInfo } from './redux/auth/userAction';
+import { auth } from './firebase-config';
 
 function App() {
+
+
+  const dispatch = useDispatch();
+  // This will always make sure our store is hydrated with user info 
+  // although a user refreshes the page
+  onAuthStateChanged(auth, (user) => {
+    if (user?.uid) {
+      dispatch(getUserInfo(user.uid))
+    }
+  })
   return (
     <div className="app">
       {/* Routes */}

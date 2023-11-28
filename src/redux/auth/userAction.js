@@ -37,6 +37,7 @@ export const loginAdminUser = (email, password) => async (dispatch) => {
             pending: "In Progress..."
         })
         const { user } = await authSnap;
+        toast.success(`Login Success!`)
         // If login is success, then query firebase DB to get user info
         // and put that in our redux store
         dispatch(getUserInfo(user.uid))

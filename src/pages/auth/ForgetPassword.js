@@ -47,7 +47,7 @@ function ForgetPassword() {
                     <Form onSubmit={handleOnSubmit} className='login-form mt-3 mb-3 border p-5 shadow-lg '>
 
                         {inputFields.map((input) => {
-                            return <CustomInput {...input} onChange={handleOnChange} />
+                            return <CustomInput {...input} key={input.label} onChange={handleOnChange} />
                             // return <CustomInput label="First Name *" name="fName" ... />
                         })}
 

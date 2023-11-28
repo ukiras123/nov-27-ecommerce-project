@@ -4,9 +4,9 @@ import Footer from '../../components/layout/Footer'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CustomInput from '../../components/customInput/CustomInput';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createAdminUser, loginAdminUser } from '../../redux/auth/userAction';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 const inputFields = [
 
     {
@@ -29,8 +29,15 @@ function Login() {
 
     const [formData, setFormData] = useState({});
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const userInfo = useSelector(state => state.userInfo.user)
 
+    useEffect(() => {
+        // If user is logged in, then navigate them to dashboard
+        if (userInfo.uid) {
+            navigate("/dashboard")
+        }
+    }, [userInfo])
     const handleOnChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -54,7 +61,7 @@ function Login() {
                 <Form onSubmit={handleOnSubmit} className='login-form mt-3 mb-3 border p-5 shadow-lg '>
 
                     {inputFields.map((input) => {
-                        return <CustomInput {...input} onChange={handleOnChange} />
+                        return <CustomInput key={input.label} {...input} onChange={handleOnChange} />
                         // return <CustomInput label="First Name *" name="fName" ... />
                     })}
 

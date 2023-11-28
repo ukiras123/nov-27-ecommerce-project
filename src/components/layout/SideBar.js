@@ -43,7 +43,7 @@ function SideBar() {
                 <ul className="list-unstyled side-links">
                     {sideLinks.map(link => {
                         const active = link.path === pathname ? 'active' : "";
-                        return <li className={`mt-2 p-2 ms-2 ${active}`} >
+                        return <li className={`mt-2 p-2 ms-2 ${active}`} key={link.path}>
                             <Link to={link.path} className='nav-link'>
                                 {link.label}
                             </Link>
