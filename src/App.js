@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Login from './pages/auth/Login';
@@ -18,6 +18,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { getUserInfo } from './redux/auth/userAction';
 import { auth } from './firebase-config';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
+import AddNewProduct from './pages/product/AddNewProduct';
+import EditNewProduct from './pages/product/EditNewProduct';
+import { getAllCategoriesAction } from './redux/category/categoryAction';
+import { getAllProductAction } from './redux/product/productAction';
 
 function App() {
 
@@ -30,6 +34,12 @@ function App() {
       dispatch(getUserInfo(user.uid))
     }
   })
+
+  // Default Fetch
+  useEffect(() => {
+    dispatch(getAllCategoriesAction())
+    dispatch(getAllProductAction())
+  }, [dispatch])
   return (
     <div className="app">
       {/* Routes */}
@@ -50,12 +60,22 @@ function App() {
           </PrivateRoute>}>
         </Route>
         <Route path="/category" element={<PrivateRoute><Category /></PrivateRoute>}></Route>
+
         <Route path="/product" element={<PrivateRoute><Product /></PrivateRoute>}></Route>
+        <Route path="/product/new" element={<PrivateRoute><AddNewProduct /></PrivateRoute>}></Route>
+        <Route path="/product/edit/:slug" element={<PrivateRoute><EditNewProduct /></PrivateRoute>}></Route>
+
+
+
         <Route path="/payment-options" element={<PrivateRoute><PaymentOptions /></PrivateRoute>}></Route>
         <Route path="/orders" element={<PrivateRoute><Orders /></PrivateRoute>}></Route>
         <Route path="/customers" element={<PrivateRoute><Customers /></PrivateRoute>}></Route>
         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>}></Route>
-
+        <Route path="*" element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>}>
+        </Route>
       </Routes>
       <ToastContainer />
 
